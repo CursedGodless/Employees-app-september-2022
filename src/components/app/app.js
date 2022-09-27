@@ -11,12 +11,17 @@ class App extends Component {
 
 	constructor(props) {
 		super(props);
+		let data = [
+			{ name: 'John K.', salary: '1032', id: 0, increase: false, rise: false },
+			{ name: 'Barbara D.', salary: '2034', id: 1, increase: false, rise: false },
+			{ name: 'Alex A.', salary: '921', id: 2, increase: false, rise: false },
+		];
+		if (localStorage.getItem('data')) {
+			data = JSON.parse(localStorage.getItem('data'));
+		}
+
 		this.state = {
-			data: [
-				{ name: 'John K.', salary: '1032', id: 0, increase: false, rise: false },
-				{ name: 'Barbara D.', salary: '2034', id: 1, increase: false, rise: false },
-				{ name: 'Alex A.', salary: '921', id: 2, increase: false, rise: false },
-			],
+			data: data,
 			term: '',
 			filter: 'all'
 		}
@@ -85,6 +90,7 @@ class App extends Component {
 		const totalEmp = data.length;
 		const increased = data.filter(item => item.increase).length;
 		const visibleData = this.filterEmps(filter, this.searchEmp(term, data))
+		localStorage.setItem('data', JSON.stringify(data));
 
 		return (
 			<div className="app">
